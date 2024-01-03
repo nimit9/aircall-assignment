@@ -1,9 +1,10 @@
-import { ICallDetail } from './call.interface';
+import { ICallDetail, IGroupedByCallType } from './call.interface';
 
 export type FetchAllCallsAction = {
     type: 'FETCH_ALL_CALLS';
     payload: {
-        calls: ICallDetail[];
+        activityFeed: IGroupedByCallType;
+        archive: IGroupedByCallType;
     };
 };
 

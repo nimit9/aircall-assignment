@@ -1,10 +1,14 @@
 import { useAppContext } from '@/context/context';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const ActivityList = () => {
-    const { calls, fetchAllCalls } = useAppContext();
+    const { archive, fetchAllCalls } = useAppContext();
 
-    return <div>{JSON.stringify(calls)}</div>;
+    useEffect(() => {
+        fetchAllCalls();
+    }, []);
+
+    return <div>{JSON.stringify(archive)}</div>;
 };
 
 export default ActivityList;

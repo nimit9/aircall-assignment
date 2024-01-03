@@ -9,3 +9,8 @@ export interface ICallDetail {
     id: string;
     created_at: string;
 }
+export type CallTypes = 'missed' | 'voicemail' | 'answered';
+
+export type IGroupedByCallType = {
+    [callType in CallTypes]: ICallDetail[];
+};

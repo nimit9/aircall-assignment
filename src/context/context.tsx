@@ -1,10 +1,12 @@
-import { ICallDetail } from '@/interfaces/call.interface';
+import { ICallDetail, IGroupedByCallType } from '@/interfaces/call.interface';
 import { ReactNode, createContext, useContext, useReducer } from 'react';
 import { reducer } from './reducer';
 import { FETCH_ALL_CALLS } from './action';
+import { getActivityFeed, getArchiveData } from '@/lib/helpers';
 
 export interface IState {
-    calls: ICallDetail[];
+    activityFeed: IGroupedByCallType;
+    archive: IGroupedByCallType;
 }
 
 interface IAppContextValue extends IState {
@@ -16,7 +18,8 @@ interface IAppProviderProps {
 }
 
 const initialState: IState = {
-    calls: [],
+    activityFeed: {} as IGroupedByCallType,
+    archive: {} as IGroupedByCallType,
 };
 
 const AppContext = createContext<IAppContextValue | undefined>(undefined);
@@ -38,7 +41,14 @@ export const AppProvider = ({ children }: IAppProviderProps) => {
         const response = await fetch(apiUrl);
 
         const data: ICallDetail[] = await response.json();
-        dispatch({ type: FETCH_ALL_CALLS, payload: { calls: data } });
+
+        dispatch({
+            type: FETCH_ALL_CALLS,
+            payload: {
+                activityFeed: getActivityFeed(data),
+                archive: getArchiveData(data),
+            },
+        });
     };
 
     const contextValue: IAppContextValue = {

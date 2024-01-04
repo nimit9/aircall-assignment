@@ -17,7 +17,7 @@ function App() {
     useDarkMode();
 
     return (
-        <>
+        <div className="md:m-auto md:w-[700px] md:min-h-screen md:border">
             {!location.pathname.includes('/call-detail') && <Header />}
             <Toaster
                 position="bottom-center"
@@ -25,7 +25,7 @@ function App() {
                 reverseOrder={true}
             />
             <Outlet />
-        </>
+        </div>
     );
 }
 

@@ -1,0 +1,11 @@
+{
+    "from": 9158,
+    "to": 7865,
+    "duration": 120,
+    "via": 1234,
+    "call_type": "outgoing",
+    "created_at": "2011-10-05T14:48:00.000Z",
+    "direction": "outgoing",
+    "is_archived": false,
+    "id": "1234"
+}

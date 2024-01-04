@@ -1,6 +1,7 @@
 import {
     CallTypes,
     ICallDetail,
+    ICallDetailWithMissingKeys,
     IGroupedByCallType,
     IGroupedByDate,
 } from '@/interfaces/call.interface';
@@ -12,7 +13,7 @@ import { formatDate } from './date.helpers';
  * @returns An object where keys are unique call type values, and values are arrays containing call details with that call type.
  */
 export const getCallsListByType = (
-    calls: ICallDetail[],
+    calls: ICallDetailWithMissingKeys[],
 ): IGroupedByCallType => {
     const sortedListByDate = getCallsListSortedByDate(calls);
     return sortedListByDate.reduce((acc, call) => {
@@ -24,7 +25,7 @@ export const getCallsListByType = (
             acc[callType] = [];
         }
 
-        acc[callType].push(call);
+        acc[callType].push(call as ICallDetail);
 
         return acc;
     }, {} as IGroupedByCallType);
@@ -56,8 +57,10 @@ export const groupCallsByDate = (calls: ICallDetail[]) => {
  * @param calls - An array of call details.
  * @returns A new array of call details sorted by date in descending order.
  */
-export const getCallsListSortedByDate = (calls: ICallDetail[]) => {
-    return calls.sort(
+export const getCallsListSortedByDate = (
+    calls: ICallDetailWithMissingKeys[],
+) => {
+    return [...calls].sort(
         (a, b) =>
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     );
@@ -68,7 +71,7 @@ export const getCallsListSortedByDate = (calls: ICallDetail[]) => {
  * @param calls - An array of call details.
  * @returns An object where keys are unique call type values, and values are arrays containing call details with that call type.
  */
-export const getActivityFeed = (calls: ICallDetail[]) => {
+export const getActivityFeed = (calls: ICallDetailWithMissingKeys[]) => {
     return getCallsListByType(calls.filter((call) => !call.is_archived));
 };
 
@@ -77,6 +80,6 @@ export const getActivityFeed = (calls: ICallDetail[]) => {
  * @param calls - An array of call details.
  * @returns An object where keys are unique call type values, and values are arrays containing call details with that call type.
  */
-export const getArchiveData = (calls: ICallDetail[]) => {
+export const getArchiveData = (calls: ICallDetailWithMissingKeys[]) => {
     return getCallsListByType(calls.filter((call) => call.is_archived));
 };

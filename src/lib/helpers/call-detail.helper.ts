@@ -1,6 +1,11 @@
 import { ICallDetail } from '@/interfaces/call.interface';
 import { formatDate, formatTime } from './date.helpers';
 
+/**
+ * Convert a call duration in seconds to a formatted string (hours, minutes, seconds).
+ * @param duration - The duration of the call in seconds.
+ * @returns A string representation of the formatted call duration.
+ */
 export const getCallDuration = (duration: number) => {
     if (duration === 0) {
         return '0s';
@@ -13,7 +18,7 @@ export const getCallDuration = (duration: number) => {
     const minutesStr = minutes > 0 ? `${minutes}m ` : '';
     const secondsStr = seconds > 0 ? `${seconds}s` : '';
 
-    return hoursStr + minutesStr + secondsStr;
+    return (hoursStr + minutesStr + secondsStr).trim();
 };
 
 /**

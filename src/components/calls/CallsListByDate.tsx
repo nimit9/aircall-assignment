@@ -1,7 +1,7 @@
 import { ICallDetail } from '@/interfaces/call.interface';
 import { groupCallsByDate } from '@/lib/helpers/call-list.helpers';
 
-import CallsCard from './CallsCard';
+import CallCard from './CallCard';
 
 const CallsListByDate = ({ callList }: { callList: ICallDetail[] }) => {
     if (!callList) {
@@ -25,7 +25,7 @@ const CallsListByDate = ({ callList }: { callList: ICallDetail[] }) => {
                         <div className="flex flex-col gap-4">
                             {callsList.map((callDetails) => {
                                 return (
-                                    <CallsCard
+                                    <CallCard
                                         callDetails={callDetails}
                                         key={callDetails.id}
                                     />

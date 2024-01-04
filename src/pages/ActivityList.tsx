@@ -48,8 +48,6 @@ const ActivityList = () => {
         fetchAllCalls();
     };
 
-    console.log('fetchStatsLoading', fetchCallsListLoading);
-
     return (
         <>
             <div className="w-full flex justify-between items-center p-4">

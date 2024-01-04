@@ -8,8 +8,6 @@ import {
 import { IState } from '@/interfaces/context.interface';
 
 export const reducer = (state: IState, action: Action): IState => {
-    console.log('actoin.payload', action);
-
     switch (action.type) {
         case FETCH_ALL_CALLS:
             return {

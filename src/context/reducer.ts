@@ -1,18 +1,36 @@
-import { Action, FetchAllCallsAction } from '@/interfaces/action.interface';
-import { IState } from './context';
+import { Action } from '@/interfaces/action.interface';
 
-const handlers: Record<string, (state: IState, action: Action) => IState> = {
-    FETCH_ALL_CALLS: (
-        state: IState,
-        { payload: { activityFeed, archive } }: FetchAllCallsAction,
-    ): IState => {
-        return {
-            ...state,
-            activityFeed,
-            archive,
-        };
-    },
+import {
+    FETCH_ALL_CALLS,
+    SET_ALL_CALLS_LOADING,
+    TOGGLE_DARK_MODE,
+} from './action';
+import { IState } from '@/interfaces/context.interface';
+
+export const reducer = (state: IState, action: Action): IState => {
+    console.log('actoin.payload', action);
+
+    switch (action.type) {
+        case FETCH_ALL_CALLS:
+            return {
+                ...state,
+                callsList: action.payload.callsList,
+            };
+
+        case TOGGLE_DARK_MODE:
+            return {
+                ...state,
+                darkMode: action.payload
+                    ? action.payload.darkMode
+                    : !state.darkMode,
+            };
+        case SET_ALL_CALLS_LOADING:
+            return {
+                ...state,
+                fetchCallsListLoading: action.payload.loading,
+            };
+
+        default:
+            return state;
+    }
 };
-
-export const reducer = (state: IState, action: Action): IState =>
-    handlers[action.type] ? handlers[action.type](state, action) : state;

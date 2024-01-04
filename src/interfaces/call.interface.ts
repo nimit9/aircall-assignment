@@ -14,3 +14,6 @@ export type CallTypes = 'missed' | 'voicemail' | 'answered';
 export type IGroupedByCallType = {
     [callType in CallTypes]: ICallDetail[];
 };
+export type IGroupedByDate = {
+    [key: string]: ICallDetail[];
+};
